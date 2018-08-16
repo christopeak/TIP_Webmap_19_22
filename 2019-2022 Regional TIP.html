@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" contenf
 t="initial-scale=1, maximum-scale=1,user-scalable=no">
-<title>2017-2020 Regional TIP</title>
+<title>2019-2022 Draft Regional TIP</title>
 <link rel="stylesheet" href="https://js.arcgis.com/3.8/js/dojo/dijit/themes/claro/claro.css" />
 <link rel="stylesheet" href="https://js.arcgis.com/3.8/js/esri/css/esri.css" />
 <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open Sans">
@@ -257,7 +257,82 @@ t="initial-scale=1, maximum-scale=1,user-scalable=no">
             opacity: 0.65
             });  
         legendLayers.push({layer:military,title:"Military Bases"});
-  
+ 
+        //Opportunity 
+       var opportunity = new FeatureLayer("https://services6.arcgis.com/GWxg6t7KXELn1thE/arcgis/rest/services/opportunity/FeatureServer/0",
+          {
+            mode:FeatureLayer.MODE_ONDEMAND,
+            outFields: ["*"],
+            //infoTemplate: opp
+          }); 
+        legendLayers.push({layer:opportunity,title:"Opportunity Index"});
+	
+
+        
+		   //Disabled
+        var disab = new FeatureLayer("https://services6.arcgis.com/GWxg6t7KXELn1thE/arcgis/rest/services/disabled_census_percent/FeatureServer/0",
+        {
+            mode:FeatureLayer.MODE_ONDEMAND,
+            outFields: ["*"],
+            //infoTemplate: dis
+            }); 
+        
+        legendLayers.push({layer:disab, title:"Disabled Population"});
+           
+	
+       //Seniors
+       var eld = new FeatureLayer("https://services6.arcgis.com/GWxg6t7KXELn1thE/arcgis/rest/services/elderly/FeatureServer/0",
+          {
+              mode:FeatureLayer.MODE_ONDEMAND,
+              outFields: ["*"],
+              infoTemplate: eld
+              }); 
+        legendLayers.push({layer:eld,title:"Seniors Age 65+"});        
+        
+           //Minority
+        var minEJ = new FeatureLayer("https://services6.arcgis.com/GWxg6t7KXELn1thE/arcgis/rest/services/minority_tract_EJ_Analysis_2016/FeatureServer/0",
+        {
+            mode:FeatureLayer.MODE_ONDEMAND
+            }); 
+        legendLayers.push({layer:minEJ,title:"Minority Population"});
+		  
+		  //Fed Urban Area
+        var fedurb = new FeatureLayer("https://services6.arcgis.com/GWxg6t7KXELn1thE/arcgis/rest/services/federal_urban_area/FeatureServer/0",
+        {
+            mode:FeatureLayer.MODE_ONDEMAND,
+            outFields: ["*"],
+            //infoTemplate: fed
+         }); 
+        legendLayers.push({layer:fedurb,title:"Federal Urban Area"});
+		
+        
+           //Poverty
+        var povEJ = new FeatureLayer("https://services6.arcgis.com/GWxg6t7KXELn1thE/arcgis/rest/services/poverty_tract_EJ_Analysis_2016/FeatureServer/0",
+        {
+            mode:FeatureLayer.MODE_ONDEMAND,
+            opacity: 0.40
+         });    
+         legendLayers.push({layer:povEJ,title:"Concentrations of Poverty"});
+        
+        dojo.connect(map, 'onLayersAddResult', function(results) {
+            var legend = new esri.dijit.Legend({
+                map: map,
+                layerInfos: legendLayers
+            }, "legendDiv");
+            legend.startup();
+        });
+       
+        //T1T2
+        var t1t2 = new FeatureLayer("https://services6.arcgis.com/GWxg6t7KXELn1thE/arcgis/rest/services/freight_t1_t2/FeatureServer/0",
+        {
+            mode:FeatureLayer.MODE_ONDEMAND,
+            outFields: ["FGTSClass"],
+            opacity: 0.55  
+            });  
+        legendLayers.push({layer:t1t2,title:"Freight Routes"});
+        var freightSymbol = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([0,112,255,0.8]), 3);
+        t1t2.setRenderer(new SimpleRenderer(freightSymbol));
+          
         //MIC
         var mic = new FeatureLayer("https://services6.arcgis.com/GWxg6t7KXELn1thE/arcgis/rest/services/MIC/FeatureServer/0",
         {
@@ -274,7 +349,7 @@ t="initial-scale=1, maximum-scale=1,user-scalable=no">
             outFields: ["*"],
             opacity: 0.65
             });  
-		var no_outline = new SimpleLineSymbol(SimpleLineSymbol.STYLE_NULL);
+        var no_outline = new SimpleLineSymbol(SimpleLineSymbol.STYLE_NULL);
         var UGA_symbolism = new SimpleFillSymbol().setColor(new Color([122, 163, 26, .4]))
         UGA_symbolism.setOutline(no_outline);
         UGA.setRenderer(new SimpleRenderer(UGA_symbolism));
@@ -292,44 +367,10 @@ t="initial-scale=1, maximum-scale=1,user-scalable=no">
         rgc_symbolism.setOutline(no_outline);
         rgc.setRenderer(new SimpleRenderer(rgc_symbolism));
         legendLayers.push({layer:rgc,title:"Regional Growth Centers"});
-            
-           //Minority
-        var minEJ = new FeatureLayer("https://services6.arcgis.com/GWxg6t7KXELn1thE/arcgis/rest/services/minority_tract_EJ_Analysis_2016/FeatureServer/0",
-        {
-            mode:FeatureLayer.MODE_ONDEMAND
-            }); 
-        legendLayers.push({layer:minEJ,title:"Minority Population"});
-		
-        
-           //Poverty
-        var povEJ = new FeatureLayer("https://services6.arcgis.com/GWxg6t7KXELn1thE/arcgis/rest/services/poverty_tract_EJ_Analysis_2016/FeatureServer/0",
-        {
-            mode:FeatureLayer.MODE_ONDEMAND
-            });    
-        legendLayers.push({layer:povEJ,title:"Concentrations of Poverty"});
-        
-        dojo.connect(map, 'onLayersAddResult', function(results) {
-            var legend = new esri.dijit.Legend({
-                map: map,
-                layerInfos: legendLayers
-            }, "legendDiv");
-            legend.startup();
-        });
-        
-        //T1T2
-        var t1t2 = new FeatureLayer("https://services6.arcgis.com/GWxg6t7KXELn1thE/arcgis/rest/services/freight_t1_t2/FeatureServer/0",
-        {
-            mode:FeatureLayer.MODE_ONDEMAND,
-            outFields: ["FGTSClass"],
-            opacity: 0.55  
-            });  
-        legendLayers.push({layer:t1t2,title:"Freight Routes"});
-        var freightSymbol = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([0,112,255,0.8]), 3);
-        t1t2.setRenderer(new SimpleRenderer(freightSymbol));
-        
+	
           
       //Add other layers, 
-		var layerList = [ povEJ, minEJ, UGA, military, mic, rgc, t1t2]
+		var layerList = [ fedurb, povEJ, minEJ, eld, disab, opportunity, UGA, military, mic, rgc, t1t2]
 		map.addLayers(layerList)
         //but do not make them visible
         dojo.forEach(layerList, function(layer) {
@@ -586,7 +627,7 @@ function formatDate (Dateval) {
 
 <body class="claro">
     <div id = "BorderContainer" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="gutters:true, design:'header'" style="width:100%;height:100%;">
-      <div data-dojo-type="dijit/layout/ContentPane"  id="header" data-dojo-props="region:'top'" ><b>PSRC 2017-2020 Regional TIP Map *</b> </div>
+      <div data-dojo-type="dijit/layout/ContentPane"  id="header" data-dojo-props="region:'top'" ><b>PSRC Draft 2019-2022 Regional TIP Map </b> </div>
      
 	<div id="img"><img src="/sites/default/files/psrclogo.jpg"></div>
 	 <div id="map" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'">
@@ -611,8 +652,7 @@ function formatDate (Dateval) {
 	  </div>
 	  <div id="BasemapToggle"></div>
 	  <div id="HomeButton"></div>
-      <div id="rightPane" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'right'"><b>Getting Started:</b><br/><br/>TIP projects are shown in red. Click on any part of a project line segment to find more information. You can add or remove additional data layers in the left hand panel. </b><br/><br/> * Updated as of the 18-02 TIP Amendment.
-	  </div>
+      <div id="rightPane" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'right'"><b>Getting Started:</b><br/><br/>TIP projects are shown in red. Click on any part of a project line segment to find more information. You can add or remove additional data layers in the left hand panel. </b><br/><br/> 	  </div>
       
       
     <div dojotype="dijit.layout.ContentPane" id="leftPane" region="left"  > 
