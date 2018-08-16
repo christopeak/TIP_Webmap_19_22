@@ -56,12 +56,12 @@ t="initial-scale=1, maximum-scale=1,user-scalable=no">
 	
     #header {
         text-align: Left;
-		font-size: 35px;
-		font-family: "Ariel bold"
+        font-size: 35px;
+        font-family: "Ariel bold"
         height:80px;
-		border:none ;
-		border-bottom: Solid;
-		border-bottom-color: #a6a6a6;
+        border:none ;
+        border-bottom: Solid;
+        border-bottom-color: #a6a6a6;
         Background-color: White;
         color: #5a5a5a;
     }
@@ -73,16 +73,14 @@ t="initial-scale=1, maximum-scale=1,user-scalable=no">
 		height:150px;
       }
       
-	#img{
-	position: absolute;
-	top: -10px;
-	right: 40px;
-	z-index: 50;
-	-moz-transform:scale(0.65);
-    -webkit-transform:scale(0.65);
-    transform:scale(0.65);
-	
-		}
+        
+    #img{
+        position: absolute;
+        top: 10px;
+        right: 80px;
+        z-index: 50;
+      } 
+      
 	.ajax-loader {
     position: absolute;
     left: 50%;
@@ -296,15 +294,6 @@ t="initial-scale=1, maximum-scale=1,user-scalable=no">
             }); 
         legendLayers.push({layer:minEJ,title:"Minority Population"});
 		  
-		  //Fed Urban Area
-        var fedurb = new FeatureLayer("https://services6.arcgis.com/GWxg6t7KXELn1thE/arcgis/rest/services/federal_urban_area/FeatureServer/0",
-        {
-            mode:FeatureLayer.MODE_ONDEMAND,
-            outFields: ["*"],
-            //infoTemplate: fed
-         }); 
-        legendLayers.push({layer:fedurb,title:"Federal Urban Area"});
-		
         
            //Poverty
         var povEJ = new FeatureLayer("https://services6.arcgis.com/GWxg6t7KXELn1thE/arcgis/rest/services/poverty_tract_EJ_Analysis_2016/FeatureServer/0",
@@ -321,7 +310,8 @@ t="initial-scale=1, maximum-scale=1,user-scalable=no">
             }, "legendDiv");
             legend.startup();
         });
-       
+
+		     
         //T1T2
         var t1t2 = new FeatureLayer("https://services6.arcgis.com/GWxg6t7KXELn1thE/arcgis/rest/services/freight_t1_t2/FeatureServer/0",
         {
@@ -332,7 +322,16 @@ t="initial-scale=1, maximum-scale=1,user-scalable=no">
         legendLayers.push({layer:t1t2,title:"Freight Routes"});
         var freightSymbol = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([0,112,255,0.8]), 3);
         t1t2.setRenderer(new SimpleRenderer(freightSymbol));
-          
+
+		  //Fed Urban Area
+        var fedurb = new FeatureLayer("https://services6.arcgis.com/GWxg6t7KXELn1thE/arcgis/rest/services/federal_urban_area/FeatureServer/0",
+        {
+            mode:FeatureLayer.MODE_ONDEMAND,
+            outFields: ["*"],
+            //infoTemplate: fed
+         }); 
+        legendLayers.push({layer:fedurb,title:"Federal Urban Area"}); 
+        
         //MIC
         var mic = new FeatureLayer("https://services6.arcgis.com/GWxg6t7KXELn1thE/arcgis/rest/services/MIC/FeatureServer/0",
         {
@@ -629,7 +628,7 @@ function formatDate (Dateval) {
     <div id = "BorderContainer" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="gutters:true, design:'header'" style="width:100%;height:100%;">
       <div data-dojo-type="dijit/layout/ContentPane"  id="header" data-dojo-props="region:'top'" ><b>PSRC Draft 2019-2022 Regional TIP Map </b> </div>
      
-	<div id="img"><img src="/sites/default/files/psrclogo.jpg"></div>
+		 <div id="img"><img src="https://www.psrc.org/sites/default/files/psrclogo.jpg"></div>
 	 <div id="map" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'">
 	   
 	   
@@ -706,18 +705,26 @@ function formatDate (Dateval) {
 																	You can search by projects by name or sponsor by using the drop down menu.<br/><br/>													
 																	</div>
         <div data-dojo-type="dijit.layout.ContentPane" title="<b>Data Information</b>">Below is a brief description of each data layer in the TIP web map.<br/><br/>
-																	<u>Freight Routes</u><br/>
-																	This layer shows all T1 and T2 freight routes. These are the most frequently used routes by freight traffic. <br/><br/>
-																	<u>Concentrations of Poverty</u><br/>
-																	This layer displays concentrations of poverty at the census tract level. Tracts were assigned a poverty classification if they had greater than the regional average of residents living at or below the US Department of Health and Human Services Poverty Guidelines, 10.1 percent. For more information see Appendix F of the 2017-2020 Regional TIP located <a href="https://www.psrc.org/sites/default/files/2017-2020tip-appendixf-ej.pdf">here</a>.<br/><br/>
-																	<u>Minority Population</u><br/>
-																	This layer displays areas of high concentration of minority populations at the census block level. Blocks were classified as a minority block if the minority portion of the population exceeds the regional rate of 31.2 percent. For more information see Appendix F of the 2017-2020 TIP located <a href="https://www.psrc.org/sites/default/files/2017-2020tip-appendixf-ej.pdf">here</a>.<br/><br/>
 																	<u>Regional Growth Centers</u><br>
 																	This layer displays the designated Regional Growth Centers. Regional Growth Centers are identified for housing and employment growth.<br/><br/>
 																	<u>Urban Growth Area</u><br>
 																	This layer displays the Urban Growth Area. Urban Growth Areas have higher density urban development.<br/><br/>
 																	<u>Manufacturing Industrial Centers</u><br/>
 																	This layer displays the designated regional Manufacturing and Industrial Centers.  Manufacturing and Industrial Centers are areas of intensive manufacturing and/or industrial activity and are identified as locations for increased employment.<br/><br/>
+                                  <u>Federal Urban Area</u><br/>
+																	This layer displays the federally designated urban boundary<br/><br/>
+																	<u>Freight Routes</u><br/>
+																	This layer shows all T1 and T2 freight routes. These are the most frequently used routes by freight traffic. <br/><br/>
+																	<u>Concentrations of Poverty</u><br/>
+																	This layer displays concentrations of poverty at the census tract level. Tracts were assigned a poverty classification if they had greater than the regional average of residents living at or below the US Department of Health and Human Services Poverty Guidelines, 10.1 percent. For more information see Appendix F of the 2017-2020 Regional TIP located <a href="https://www.psrc.org/sites/default/files/2017-2020tip-appendixf-ej.pdf">here</a>.<br/><br/>
+																	<u>Minority Population</u><br/>
+																	This layer displays areas of high concentration of minority populations at the census block level. Blocks were classified as a minority block if the minority portion of the population exceeds the regional rate of 31.2 percent. For more information see Appendix F of the 2017-2020 TIP located <a href="https://www.psrc.org/sites/default/files/2017-2020tip-appendixf-ej.pdf">here</a>.<br/><br/>
+																	<u>Seniors Age 65+</u><br/>
+																	This layer displays senior populations as a percent of total population in each census tract. Senior population is defined as 65 years of age and older. <br/><br/>
+																	<u>Disabled Population</u><br/>
+																	This layer displays disabled populations as a percent of total population in each census tract. <br/><br/>                               
+																	<u>Opportunity Index</u><br/>
+																	This layer is a composite measure of five key elements of neighborhood opportunity at the census tract level: Education, Economic Health, Housing and Neighborhood Quality, Mobility and Transportation, and Health and Environment. More information on the opportunity index can be found here: <a target="_blank" href="https://www.psrc.org/opportunity-mapping"> https://www.psrc.org/opportunity-mapping.</a><br/><br/>
 																	<u>Military Bases</u><br/>
 																	This layer displays the military bases in the central Puget Sound Region.
 																	
