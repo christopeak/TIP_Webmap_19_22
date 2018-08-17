@@ -376,7 +376,7 @@ t="initial-scale=1, maximum-scale=1,user-scalable=no">
             layer.hide();
         });
 		//add TIP projects here so they draw over other layers
-        var tipProjs = new FeatureLayer("https://services6.arcgis.com/GWxg6t7KXELn1thE/arcgis/rest/services/tip/FeatureServer/0", {
+        var tipProjs = new FeatureLayer("https://services6.arcgis.com/GWxg6t7KXELn1thE/arcgis/rest/services/TIP_19_22/FeatureServer/0", {
             mode: FeatureLayer.MODE_ONDEMAND,
             outFields: ["*"],
             infoTemplate: infoTemplate
@@ -430,7 +430,7 @@ t="initial-scale=1, maximum-scale=1,user-scalable=no">
         });
 		
         //Code below populates the ComboBox with Project Titles
-        var queryTask = new esri.tasks.QueryTask("https://services6.arcgis.com/GWxg6t7KXELn1thE/arcgis/rest/services/tip/FeatureServer/0");
+        var queryTask = new esri.tasks.QueryTask("https://services6.arcgis.com/GWxg6t7KXELn1thE/arcgis/rest/services/TIP_19_22/FeatureServer/0");
         //Define query parameters  
         var query = new esri.tasks.Query();
         query.outFields = ["SponProjTitle"];
@@ -496,7 +496,7 @@ t="initial-scale=1, maximum-scale=1,user-scalable=no">
         // this replaces your applyLayerDef() function
         test = dijit.byId("mySelect").on("change", function() {
             //Filter the layer to display only the selected zoning types
-            var queryTask2 = new esri.tasks.QueryTask("https://services6.arcgis.com/GWxg6t7KXELn1thE/arcgis/rest/services/tip/FeatureServer/0");
+            var queryTask2 = new esri.tasks.QueryTask("https://services6.arcgis.com/GWxg6t7KXELn1thE/arcgis/rest/services/TIP_19_22/FeatureServer/0");
         //Define query parameters  
             var query2 = new esri.tasks.Query();
             query2.outFields = ["OBJECTID", "ProjectTitle", "ProjDesc", "ProjectLocation", "ProjNo", "PlaceShortName", "TotCost", "ImproveType"];
@@ -678,7 +678,7 @@ function formatDate (Dateval) {
 				<th field="FedFundAmount" width="100%" formatter= "formatCost" >Federal Funding</th>
 				<th field="StateFundAmount" width="100%" formatter= "formatCost" >State Funding</th>
 				<th field="LocalFundAmount" width="100%" formatter= "formatCost" >Local Funding</th>
-				<th field="SponsorObDate" width="100%" formatter= "formatDate">Projected Obligation Date</th>
+				<th field="SponsorObDateTxt" width="100%" formatter= "formatDate">Projected Obligation Date</th>
             </tr> 
          </thead> 
         </table> 
