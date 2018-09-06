@@ -229,13 +229,15 @@ t="initial-scale=1, maximum-scale=1,user-scalable=no">
             var totalCost = parseFloat(graphic.attributes.TotCost);
             //var compYear = graphic.attributes.COMPYR;
             var id = graphic.attributes.ProjNo;
-			var improvementType = graphic.attributes.ImproveType;
+            var improvementType = graphic.attributes.ImproveType;
+            var completionYear = graphic.attributes.EstCompletionYear;
             return "<b>" + title 
 			+ "</b><hr><b>Sponsor: </b>" + sponsor 
 			+ "<br><br>" + "<b>Project ID: </b>" + projID
 			+ "<br><br>" + "<b>Location: </b>" + location
 			+ "<br><br>" + "<b>Description: </b>" + description 
 			+ "<br><br>" + "<b>Total Project Cost: </b>" + '$' + totalCost.toLocaleString()
+			+ "<br><br>" + "<b>Estimated Completion Year: </b>" + completionYear 
 			+ "<br><br>" + "<b>Improvement Type: </b>" + improvementType + "<br>"
 			+ "<br>" + "<b>See Bottom Panel For Financial Data </b>"
 			+ "<br>"
@@ -724,7 +726,7 @@ function formatDate (Dateval) {
 																	<u>Disabled Population</u><br/>
 																	This layer displays disabled populations as a percent of total population in each census tract. <br/><br/>                               
 																	<u>Opportunity Index</u><br/>
-																	This layer is a composite measure of five key elements of neighborhood opportunity at the census tract level: Education, Economic Health, Housing and Neighborhood Quality, Mobility and Transportation, and Health and Environment. More information on the opportunity index can be found here: <a target="_blank" href="https://www.psrc.org/opportunity-mapping"> https://www.psrc.org/opportunity-mapping.</a><br/><br/>
+																	This layer is a composite measure of five key elements of neighborhood opportunity at the census tract level: Education, Economic Health, Housing and Neighborhood Quality, Mobility and Transportation, and Health and Environment. More information on the opportunity index can be found <a target="_blank" href="https://www.psrc.org/opportunity-mapping">here</a>.<br/><br/>
 																	<u>Military Bases</u><br/>
 																	This layer displays the military bases in the central Puget Sound Region.
 																	
